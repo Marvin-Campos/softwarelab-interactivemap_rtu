@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rtu_background_cropped"
     tools:context=".MainMenuActivity">
 
     <TextView
@@ -12,12 +13,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
+        android:shadowColor="#646464"
+        android:shadowRadius="10"
         android:text="RTU'S\nCAMPUS\nNAVIGATION APP"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#000000"
         android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/enterbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/rtulogo" />
 
     <Button
         android:id="@+id/creditbutton"
@@ -49,13 +54,14 @@
         app:layout_constraintTop_toBottomOf="@+id/creditbutton" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/rtulogo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999"
         app:srcCompat="@drawable/rtu_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
