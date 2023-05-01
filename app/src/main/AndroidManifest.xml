@@ -12,11 +12,12 @@
         android:theme="@style/Theme.InteractiveNavigationRTUMap"
         tools:targetApi="31">
         <activity
+            android:name=".MainMapActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreditActivity"
             android:exported="false"
-            android:parentActivityName=".MainMenuActivity"
-            />
-
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".MainMenuActivity"
             android:exported="true">
