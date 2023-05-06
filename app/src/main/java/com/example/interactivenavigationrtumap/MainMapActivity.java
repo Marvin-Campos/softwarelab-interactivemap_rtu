@@ -11,12 +11,72 @@ import android.widget.Spinner;
 import java.util.Collections;
 import java.util.Vector;
 
+import kotlin.BuilderInference;
+
+/*
+TODO
+Implement building and room classes
+Zoom in to location when a room selected
+Implement search bar???
+
+ */
 public class MainMapActivity extends AppCompatActivity {
 
-    String[] buildings = { "Select Building", "Building 1", "Building 2", "Building 3" };
-    String[] building1Rooms = { "B1 Room 1", "B1 Room 2", "B1 Room 3"};
-    String[] building2Rooms = { "B2 Room 1", "B2 Room 2", "B2 Room 3"};
-    String[] building3Rooms = { "B3 Room 1", "B3 Room 2", "B3 Room 3"};
+    Room registrar = new Room("Registrar", 1);
+    Room library1 = new Room("Library", 3);
+    Room coop = new Room("Co-Op", 1);
+    Room mic = new Room("MIC", 1);
+    Room cpe_faculty = new Room("CpE Faculty", 1);
+    Room ece_faculty = new Room("ECE Faculty", 3);
+    Room coe_center = new Room("COE Center", 3);
+    Room ece_lab= new Room("ECE Lab", 1);
+    Room cpe_lab = new Room("CpE Lab", 1);
+    Room library2 = new Room("Library 2", 2);
+    Room dormitory= new Room("Dormitory", 0);
+    Room alumni_room = new Room("Alumni Room", 4);
+    Room gymnasium = new Room("Gymnasium", 0);
+    Room legal_office= new Room("University Legal Affairs Office", 2);
+    Room psychology_lab = new Room("Psychology Lab", 6);
+    Room cpe_office = new Room("Computer Engineering Office", 1);
+    Room motor_parkinglot = new Room("Motor Parking Lot", 1);
+    Room elevator = new Room("Elevator", 1);
+    Room csa = new Room("Center for Student Affairs Scholarship & Grant Office", 1);
+    Room ovp = new Room("Office of the Vice President for Academic Affairs", 1);
+    Room cashier = new Room("Cashier", 1);
+    Room edp = new Room("Electronic Data Processing", 1);
+    Room odfs = new Room("Office of the Director Financial Services", 2);
+    Room bac = new Room("BAC Office", 3);
+    Room dmst = new Room("Department of Military Science & Tactics (NSTP & ROTC)", 1);
+    Room lao_ubs = new Room("Legal Affairs Office of the University Board Secretary", 2);
+    Room cea_dean_office = new Room("CEA Dean's Office", 2);
+
+    Building mab = new Building("Main Academic Building",
+            new Room[]{registrar, library1});
+    Building promenade = new Building("Promenade", new Room[]{coop});
+    Building profeta = new Building("Dr. Lyndia M. Profeta Building",
+            new Room[]{mic, ovp, cashier, edp, odfs});
+    Building estolas = new Building("Dr. Josefina Estolas Building",
+            new Room[]{cpe_faculty, ece_faculty, coe_center, ece_lab, cpe_lab, legal_office, cpe_office, bac, lao_ubs, cea_dean_office});
+    Building rnd = new Building("R&D Building",
+            new Room[]{library2, psychology_lab, elevator});
+    Building sngd = new Building("Sen. Neptali Gonzales Dormitory",
+        new Room[]{dormitory});
+    Building alumni_bldg = new Building("Alumni Building",
+            new Room[]{alumni_room});
+    Building gym_bldg = new Building("Gymnasium",
+            new Room[]{gymnasium});
+    Building gate1 = new Building("Gate 1",
+            new Room[]{motor_parkinglot});
+    Building old_bldg_west = new Building("Old Building (West Wing)",
+            new Room[]{dmst});
+
+    Building[] buildings = new Building[] {mab, promenade, profeta, estolas, rnd, sngd, alumni_bldg, gym_bldg, gate1, old_bldg_west};
+    Vector<String> buildingNames = new Vector<String>();
+
+//    String[] buildings = { "Select Building", "Building 1", "Building 2", "Building 3" };
+//    String[] building1Rooms = { "B1 Room 1", "B1 Room 2", "B1 Room 3"};
+//    String[] building2Rooms = { "B2 Room 1", "B2 Room 2", "B2 Room 3"};
+//    String[] building3Rooms = { "B3 Room 1", "B3 Room 2", "B3 Room 3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +84,13 @@ public class MainMapActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main_map);
 
+        buildingNames.add("Select Building");
+        for (Building building : buildings) {
+            buildingNames.add(building.getName());
+        }
+
         Spinner selectBuildingSpinner = (Spinner) findViewById(R.id.selectbuilding);
-        ArrayAdapter<String> buildingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, buildings);
+        ArrayAdapter<String> buildingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, buildingNames);
         buildingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectBuildingSpinner.setAdapter(buildingAdapter);
 
@@ -41,19 +106,23 @@ public class MainMapActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String buildingSelected = selectBuildingSpinner.getSelectedItem().toString();
 
-                selectRoomSpinner.setEnabled(true);
+//                selectRoomSpinner.setEnabled(true);
                 rooms.clear();
                 rooms.add("Select Room");
-                if(buildingSelected.equals(buildings[1])) {
-                    Collections.addAll(rooms, building1Rooms);
-                    System.out.println("building 1 selected");
-                } else if (buildingSelected.equals(buildings[2])) {
-                    Collections.addAll(rooms, building2Rooms);
-                } else if (buildingSelected.equals(buildings[3])) {
-                    Collections.addAll(rooms, building3Rooms);
-                } else {
-                    selectRoomSpinner.setEnabled(false);
+                selectRoomSpinner.setAdapter(roomAdapter);
+                for (Building building : buildings) {
+                    if(buildingSelected.equals(building.getName())) {
+                        for (Room room : building.getRooms()) {
+                            rooms.add(room.getName());
+                        }
+                        System.out.println(building.getName() + " selected");
+                        selectRoomSpinner.setEnabled(true);
+                        break;
+                    } else {
+                        selectRoomSpinner.setEnabled(false);
+                    }
                 }
+
             }
 
             @Override
