@@ -2,11 +2,15 @@ package com.example.interactivenavigationrtumap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
+
+import com.ortiz.touchview.TouchImageView;
 
 import java.util.Collections;
 import java.util.Vector;
@@ -15,8 +19,9 @@ import kotlin.BuilderInference;
 
 /*
 TODO
-Implement building and room classes
-Zoom in to location when a room selected
+Zoom in to location when a room is selected
+A location point/dot when a room is selected
+Pop up panel for more detail of a location: building in, floor, picture
 Implement search bar???
 
  */
@@ -51,38 +56,44 @@ public class MainMapActivity extends AppCompatActivity {
     Room cea_dean_office = new Room("CEA Dean's Office", 2);
 
     Building mab = new Building("Main Academic Building",
-            new Room[]{registrar, library1});
-    Building promenade = new Building("Promenade", new Room[]{coop});
+            new Room[]{registrar, library1}, 5,(float) 0.5685061,(float) 0.6698321);
+    Building promenade = new Building("Promenade", new Room[]{coop}, 5,(float) 0.3975647,(float) 0.5957413);
     Building profeta = new Building("Dr. Lyndia M. Profeta Building",
-            new Room[]{mic, ovp, cashier, edp, odfs});
+            new Room[]{mic, ovp, cashier, edp, odfs}, 5, (float) 0.5477178, (float) 0.29707468);
     Building estolas = new Building("Dr. Josefina Estolas Building",
-            new Room[]{cpe_faculty, ece_faculty, coe_center, ece_lab, cpe_lab, legal_office, cpe_office, bac, lao_ubs, cea_dean_office});
+            new Room[]{cpe_faculty, ece_faculty, coe_center, ece_lab, cpe_lab, legal_office, cpe_office, bac, lao_ubs, cea_dean_office},
+            (float) 4.5,(float) 0.3921668, (float) 0.35573292);
     Building rnd = new Building("R&D Building",
-            new Room[]{library2, psychology_lab, elevator});
+            new Room[]{library2, psychology_lab, elevator}, (float) 4.5,  (float) 0.79755753, (float) 0.33884767);
     Building sngd = new Building("Sen. Neptali Gonzales Dormitory",
-        new Room[]{dormitory});
+        new Room[]{dormitory}, 5,(float) 0.5018833, (float) 0.22385061);
     Building alumni_bldg = new Building("Alumni Building",
-            new Room[]{alumni_room});
+            new Room[]{alumni_room}, 5, (float) 0.2825684, (float) 0.46298453);
     Building gym_bldg = new Building("Gymnasium",
-            new Room[]{gymnasium});
+            new Room[]{gymnasium}, 5, (float) 0.39770386, (float) 0.70849496);
     Building gate1 = new Building("Gate 1",
-            new Room[]{motor_parkinglot});
+            new Room[]{motor_parkinglot}, 5,(float) 0.68480724, (float) 0.82457864);
     Building old_bldg_west = new Building("Old Building (West Wing)",
-            new Room[]{dmst});
+            new Room[]{dmst}, 5, (float) 0.7415863, (float) 0.37968463);
 
     Building[] buildings = new Building[] {mab, promenade, profeta, estolas, rnd, sngd, alumni_bldg, gym_bldg, gate1, old_bldg_west};
     Vector<String> buildingNames = new Vector<String>();
 
-//    String[] buildings = { "Select Building", "Building 1", "Building 2", "Building 3" };
-//    String[] building1Rooms = { "B1 Room 1", "B1 Room 2", "B1 Room 3"};
-//    String[] building2Rooms = { "B2 Room 1", "B2 Room 2", "B2 Room 3"};
-//    String[] building3Rooms = { "B3 Room 1", "B3 Room 2", "B3 Room 3"};
+    ImageView redpin;
+    TouchImageView rtu_map;
+    int maxZoom = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main_map);
+
+        redpin = (ImageView) findViewById(R.id.redpin);
+        redpin.setVisibility(View.INVISIBLE);
+
+        rtu_map = (TouchImageView) findViewById(R.id.rtumap);
+        rtu_map.setMaxZoom(maxZoom);
 
         buildingNames.add("Select Building");
         for (Building building : buildings) {
@@ -106,12 +117,15 @@ public class MainMapActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String buildingSelected = selectBuildingSpinner.getSelectedItem().toString();
 
-//                selectRoomSpinner.setEnabled(true);
+                currentZoomTest();
+
                 rooms.clear();
                 rooms.add("Select Room");
                 selectRoomSpinner.setAdapter(roomAdapter);
                 for (Building building : buildings) {
                     if(buildingSelected.equals(building.getName())) {
+                        rtu_map.setZoom(building.getScale(), building.getZoomRectCenterX(), building.getZoomRectCenterY());
+
                         for (Room room : building.getRooms()) {
                             rooms.add(room.getName());
                         }
@@ -130,10 +144,13 @@ public class MainMapActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-
-
-
-
+    private void currentZoomTest() {
+        System.out.println("Current zoom: " + rtu_map.getCurrentZoom());
+        RectF zoomedRect = rtu_map.getZoomedRect();
+        System.out.println("Zoomed rect: " + zoomedRect);
+        System.out.println("Center X of zoomed rect: " + zoomedRect.centerX());
+        System.out.println("Center Y of zoomed rect: " + zoomedRect.centerY());
     }
 }

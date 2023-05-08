@@ -13,6 +13,7 @@
         android:layout_marginTop="24dp"
         android:backgroundTint="#194F8E"
         android:backgroundTintMode="add"
+        android:translationZ="1dp"
         app:layout_constraintStart_toStartOf="@id/rtulogo_map"
         app:layout_constraintTop_toBottomOf="@+id/rtulogo_map" />
 
@@ -22,33 +23,30 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#194F8F"
         android:backgroundTintMode="add"
+        android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/selectbuilding"
         app:layout_constraintTop_toTopOf="@+id/selectbuilding" />
-
-    <ImageView
-        android:id="@+id/topbackground"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:background="#000000"
-        android:translationZ="-1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/rtumap"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:src="@drawable/map_compressed"
-        android:translationZ="-2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topbackground">
 
     </com.ortiz.touchview.TouchImageView>
+
+    <ImageView
+        android:id="@+id/redpin"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/redpin"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="198dp" />
 
     <ImageView
         android:id="@+id/rtulogo_map"
@@ -63,5 +61,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/rtu_logo" />
+
+    <ImageView
+        android:id="@+id/topbackground"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="#33000000"
+        android:translationZ="-1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
