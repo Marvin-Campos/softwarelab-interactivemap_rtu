@@ -38,15 +38,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topbackground">
 
-    </com.ortiz.touchview.TouchImageView>
 
-    <ImageView
-        android:id="@+id/redpin"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/redpin"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="198dp" />
+    </com.ortiz.touchview.TouchImageView>
 
     <ImageView
         android:id="@+id/rtulogo_map"
@@ -72,5 +65,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slidinglayout"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:background="#00000000"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/rtumap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:umanoPanelHeight="68dp"
+        app:umanoShadowHeight="4dp">
+
+        <TextView
+            android:id="@+id/maincontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/sliderbackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="DETAILS"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/roomname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/details"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:text="ROOM: "
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/floornumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/roomname"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:text="FLOOR: "
+                android:textColor="#FFFFFF" />
+
+            <ImageView
+                android:id="@+id/room_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/roomname"
+                android:layout_alignTop="@id/roomname"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/room_placeholder" />
+        </RelativeLayout>
+
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+    <Button
+        android:id="@+id/testbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

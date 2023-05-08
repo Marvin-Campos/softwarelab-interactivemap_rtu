@@ -13,7 +13,12 @@ public class Room {
         return name;
     }
 
-    public int getFloorNumber() {
-        return floorNumber;
+    public String getFloorNumber() {
+        if(floorNumber == 0) { return "Whole Building"; }
+        else if (floorNumber == 1) { return "1st";}
+        else if (floorNumber == 2) { return "2nd";}
+        else if (floorNumber == 3) { return "3rd";}
+        else { return floorNumber + "th"; }
+
     }
 }

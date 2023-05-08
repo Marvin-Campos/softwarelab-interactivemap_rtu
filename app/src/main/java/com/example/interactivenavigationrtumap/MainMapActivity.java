@@ -7,23 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ortiz.touchview.TouchImageView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.util.Collections;
 import java.util.Vector;
-
-import kotlin.BuilderInference;
 
 /*
 TODO
 Zoom in to location when a room is selected
-A location point/dot when a room is selected
+A location red pin when a room is selected
 Pop up panel for more detail of a location: building in, floor, picture
 Implement search bar???
-
+BUG: Area around the scroll up panel makes the map unzoomable/non-interactive
+BUG: roomname's string overflows over floornumber due to long text (in scroll up layout)
  */
 public class MainMapActivity extends AppCompatActivity {
 
@@ -78,8 +79,11 @@ public class MainMapActivity extends AppCompatActivity {
 
     Building[] buildings = new Building[] {mab, promenade, profeta, estolas, rnd, sngd, alumni_bldg, gym_bldg, gate1, old_bldg_west};
     Vector<String> buildingNames = new Vector<String>();
+    Building buildingSelected = null;
 
+    Button testbutton;
     ImageView redpin;
+    SlidingUpPanelLayout slidepanel;
     TouchImageView rtu_map;
     int maxZoom = 5;
 
@@ -89,8 +93,21 @@ public class MainMapActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main_map);
 
-        redpin = (ImageView) findViewById(R.id.redpin);
-        redpin.setVisibility(View.INVISIBLE);
+        testbutton = (Button) findViewById(R.id.testbutton);
+
+        testbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Panel State: " + slidepanel.getPanelState());
+            }
+        });
+
+//        redpin = (ImageView) findViewById(R.id.redpin);
+//        redpin.setVisibility(View.INVISIBLE);
+
+        slidepanel = findViewById(R.id.slidinglayout);
+        slidepanel.setPanelHeight(100);
+        slidepanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
 
         rtu_map = (TouchImageView) findViewById(R.id.rtumap);
         rtu_map.setMaxZoom(maxZoom);
@@ -115,7 +132,7 @@ public class MainMapActivity extends AppCompatActivity {
         selectBuildingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String buildingSelected = selectBuildingSpinner.getSelectedItem().toString();
+                String buildingSelectedStr = selectBuildingSpinner.getSelectedItem().toString();
 
                 currentZoomTest();
 
@@ -123,20 +140,49 @@ public class MainMapActivity extends AppCompatActivity {
                 rooms.add("Select Room");
                 selectRoomSpinner.setAdapter(roomAdapter);
                 for (Building building : buildings) {
-                    if(buildingSelected.equals(building.getName())) {
-                        rtu_map.setZoom(building.getScale(), building.getZoomRectCenterX(), building.getZoomRectCenterY());
+                    if(buildingSelectedStr.equals(building.getName())) {
+                        buildingSelected = building;
+                        rtu_map.setZoom(buildingSelected.getScale(), buildingSelected.getZoomRectCenterX(), buildingSelected.getZoomRectCenterY());
 
-                        for (Room room : building.getRooms()) {
+                        for (Room room : buildingSelected.getRooms()) {
                             rooms.add(room.getName());
                         }
-                        System.out.println(building.getName() + " selected");
+                        System.out.println(buildingSelected.getName() + " selected");
                         selectRoomSpinner.setEnabled(true);
                         break;
                     } else {
                         selectRoomSpinner.setEnabled(false);
                     }
                 }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        selectRoomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String roomSelectedStr = selectRoomSpinner.getSelectedItem().toString();
+
+                TextView roomname = findViewById(R.id.roomname);
+                TextView floornumber = findViewById(R.id.floornumber);
+
+                if (buildingSelected != null) {
+                    for (Room room : buildingSelected.getRooms()) {
+                        if(roomSelectedStr.equals(room.getName())) {
+                            System.out.println("Room selected" + roomSelectedStr);
+                            slidepanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                            roomname.setText("ROOM: " + room.getName());
+                            floornumber.setText("FLOOR: " + room.getFloorNumber());
+                            break;
+                        } else {
+                            slidepanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+                        }
+                    }
+                }
             }
 
             @Override
