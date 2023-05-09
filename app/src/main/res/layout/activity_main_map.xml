@@ -4,14 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainMapActivity">
+
+
+    <TextView
+        android:id="@+id/searchbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:drawable/editbox_background"
+        android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+        android:gravity="center_vertical"
+        android:hint="Select course"
+        android:padding="12dp"
+        android:text="Search"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/rtulogo_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rtulogo_map" />
 
     <Spinner
         android:id="@+id/selectbuilding"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#194F8E"
+        android:backgroundTint="#000000"
         android:backgroundTintMode="add"
         android:translationZ="1dp"
         app:layout_constraintStart_toStartOf="@id/rtulogo_map"
@@ -21,7 +40,7 @@
         android:id="@+id/selectroom"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#194F8F"
+        android:backgroundTint="#000000"
         android:backgroundTintMode="add"
         android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +57,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topbackground">
 
+<!--        <ImageView-->
+<!--            android:id="@+id/asd"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            app:srcCompat="@drawable/rtu_logo" />-->
 
     </com.ortiz.touchview.TouchImageView>
 
@@ -59,7 +83,7 @@
         android:id="@+id/topbackground"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:background="#33000000"
+        android:background="#66000000"
         android:translationZ="-1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,11 +138,13 @@
 
             <TextView
                 android:id="@+id/roomname"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/details"
+                android:layout_alignEnd="@id/floornumber"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="80dp"
                 android:text="ROOM: "
                 android:textColor="#FFFFFF" />
 
@@ -151,7 +177,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/rtumap" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
