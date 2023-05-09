@@ -25,25 +25,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/rtulogo_map" />
 
+    <ImageView
+        android:id="@+id/buildinglogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/selectbuilding"
+        app:layout_constraintEnd_toStartOf="@+id/selectbuilding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/selectbuilding"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
     <Spinner
         android:id="@+id/selectbuilding"
-        android:layout_width="175dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
+        android:spinnerMode="dropdown"
         android:translationZ="1dp"
+        app:layout_constraintEnd_toStartOf="@+id/selectroom"
         app:layout_constraintStart_toStartOf="@id/rtulogo_map"
         app:layout_constraintTop_toBottomOf="@+id/rtulogo_map" />
 
+    <ImageView
+        android:id="@+id/roomlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/selectroom"
+        app:layout_constraintEnd_toStartOf="@id/selectroom"
+        app:layout_constraintStart_toEndOf="@id/selectbuilding"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
     <Spinner
         android:id="@+id/selectroom"
-        android:layout_width="175dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
+        android:spinnerMode="dropdown"
         android:translationZ="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/searchbox"
         app:layout_constraintStart_toEndOf="@+id/selectbuilding"
         app:layout_constraintTop_toTopOf="@+id/selectbuilding" />
 
@@ -57,11 +81,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topbackground">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/asd"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            app:srcCompat="@drawable/rtu_logo" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/asd"-->
+        <!--            android:layout_width="50dp"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            app:srcCompat="@drawable/rtu_logo" />-->
 
     </com.ortiz.touchview.TouchImageView>
 
@@ -86,6 +110,7 @@
         android:background="#66000000"
         android:translationZ="-1dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
