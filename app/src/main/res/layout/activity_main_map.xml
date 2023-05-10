@@ -26,12 +26,11 @@
         app:layout_constraintStart_toEndOf="@+id/rtulogo_map" />
 
     <ImageView
-        android:id="@+id/buildinglogo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/buildingicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/selectbuilding"
-        app:layout_constraintEnd_toStartOf="@+id/selectbuilding"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/rtulogo_map"
         app:layout_constraintTop_toTopOf="@+id/selectbuilding"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
@@ -44,17 +43,18 @@
         android:backgroundTintMode="add"
         android:spinnerMode="dropdown"
         android:translationZ="1dp"
-        app:layout_constraintEnd_toStartOf="@+id/selectroom"
-        app:layout_constraintStart_toStartOf="@id/rtulogo_map"
+        app:layout_constraintEnd_toStartOf="@id/roomicon"
+        app:layout_constraintStart_toEndOf="@id/buildingicon"
         app:layout_constraintTop_toBottomOf="@+id/rtulogo_map" />
 
     <ImageView
-        android:id="@+id/roomlogo"
+        android:id="@+id/roomicon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/selectroom"
-        app:layout_constraintEnd_toStartOf="@id/selectroom"
-        app:layout_constraintStart_toEndOf="@id/selectbuilding"
+        app:layout_constraintEnd_toStartOf="@+id/selectroom"
+        app:layout_constraintTop_toTopOf="@id/selectroom"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <Spinner
@@ -66,7 +66,6 @@
         android:spinnerMode="dropdown"
         android:translationZ="1dp"
         app:layout_constraintEnd_toEndOf="@+id/searchbox"
-        app:layout_constraintStart_toEndOf="@+id/selectbuilding"
         app:layout_constraintTop_toTopOf="@+id/selectbuilding" />
 
     <com.ortiz.touchview.TouchImageView
