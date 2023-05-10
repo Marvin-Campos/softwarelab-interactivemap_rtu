@@ -40,7 +40,7 @@ BUG: roomname's string clipping over room image due to long text
 public class MainMapActivity extends AppCompatActivity {
 
     Room registrar = new Room("Registrar", 1, R.drawable.registrar);
-    Room library1 = new Room("Library", 3, R.drawable.library_1);
+    Room library1 = new Room("Library 1", 3, R.drawable.library_1);
     Room coop = new Room("Co-Op", 1, R.drawable.co_op);
     Room mic = new Room("MIC", 1, R.drawable.electronic_dataprocessing_mic);
     Room cpe_faculty = new Room("CpE Faculty", 1, R.drawable.cpe_office);
@@ -68,7 +68,7 @@ public class MainMapActivity extends AppCompatActivity {
     Room cea_dean_office = new Room("CEA Dean's Office", 2, R.drawable.room_placeholder);
 
     Building mab = new Building("Main Academic Building",
-            new Room[]{registrar, library1}, 5, (float) 0.5685061, (float) 0.6698321);
+            new Room[]{registrar}, 5, (float) 0.5685061, (float) 0.6698321);
     Building promenade = new Building("Promenade", new Room[]{coop}, 5, (float) 0.3975647, (float) 0.5957413);
     Building profeta = new Building("Dr. Lyndia M. Profeta Building",
             new Room[]{mic, ovp, cashier, edp, odfs}, 5, (float) 0.5477178, (float) 0.29707468);
@@ -87,8 +87,10 @@ public class MainMapActivity extends AppCompatActivity {
             new Room[]{motor_parkinglot}, 5, (float) 0.68480724, (float) 0.82457864);
     Building old_bldg_west = new Building("Old Building (West Wing)",
             new Room[]{dmst}, 5, (float) 0.7415863, (float) 0.37968463);
+    Building snagah = new Building("Sen. Neptali Gonzales Academic Hall", new Room[]{library1},
+            5, (float) 0.85699487, (float) 0.31401277);
 
-    Building[] buildings = new Building[]{mab, promenade, profeta, estolas, rnd, sngd, alumni_bldg, gym_bldg, gate1, old_bldg_west};
+    Building[] buildings = new Building[]{mab, promenade, profeta, estolas, rnd, sngd, alumni_bldg, gym_bldg, gate1, old_bldg_west, snagah};
     Room[] rooms = new Room[]{registrar, library1, coop, mic, ovp, cashier, edp, odfs, cpe_faculty, ece_faculty, coe_center, ece_lab,
             cpe_lab, legal_office, cpe_office, bac, lao_ubs, cea_dean_office, library2, psychology_lab, elevator, alumni_room, gymnasium,
             motor_parkinglot, dmst};
@@ -112,7 +114,7 @@ public class MainMapActivity extends AppCompatActivity {
         testbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Panel State: " + slidepanel.getPanelState());
+                currentZoomTest();
             }
         });
 
