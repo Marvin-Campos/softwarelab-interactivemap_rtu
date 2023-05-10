@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 /*
 TODO
-Picture of each room
+put app logo
 
 DESIGN: put logo and improve dropdown designs
 DESIGN: scroll up panel roomname and floornumber showing out when it's collapsed
