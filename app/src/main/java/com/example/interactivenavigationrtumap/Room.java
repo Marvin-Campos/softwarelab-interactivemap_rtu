@@ -1,12 +1,17 @@
 package com.example.interactivenavigationrtumap;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+
 public class Room {
     private String name;
     private int floorNumber;
+    private int pictureID;
 
-    public Room(String name, int floorNumber) {
+    public Room(String name, int floorNumber, int pictureID) {
         this.name = name;
         this.floorNumber = floorNumber;
+        this.pictureID = pictureID;
     }
 
     public String getName() {
@@ -20,5 +25,9 @@ public class Room {
         else if (floorNumber == 3) { return "3rd";}
         else { return floorNumber + "th"; }
 
+    }
+
+    public int getPictureID() {
+        return pictureID;
     }
 }

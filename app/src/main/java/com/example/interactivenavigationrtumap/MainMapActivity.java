@@ -30,10 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 /*
 TODO
-Zoom in to location when a room is selected
-A location red pin when a room is selected
-Pop up panel for more detail of a location: building in, floor, picture
-Implement search bar???
+Picture of each room
 
 DESIGN: put logo and improve dropdown designs
 DESIGN: scroll up panel roomname and floornumber showing out when it's collapsed
@@ -42,33 +39,33 @@ BUG: roomname's string clipping over room image due to long text
  */
 public class MainMapActivity extends AppCompatActivity {
 
-    Room registrar = new Room("Registrar", 1);
-    Room library1 = new Room("Library", 3);
-    Room coop = new Room("Co-Op", 1);
-    Room mic = new Room("MIC", 1);
-    Room cpe_faculty = new Room("CpE Faculty", 1);
-    Room ece_faculty = new Room("ECE Faculty", 3);
-    Room coe_center = new Room("COE Center", 3);
-    Room ece_lab = new Room("ECE Lab", 1);
-    Room cpe_lab = new Room("CpE Lab", 1);
-    Room library2 = new Room("Library 2", 2);
-    Room dormitory = new Room("Dormitory", 0);
-    Room alumni_room = new Room("Alumni Room", 4);
-    Room gymnasium = new Room("Gymnasium", 0);
-    Room legal_office = new Room("University Legal Affairs Office", 2);
-    Room psychology_lab = new Room("Psychology Lab", 6);
-    Room cpe_office = new Room("Computer Engineering Office", 1);
-    Room motor_parkinglot = new Room("Motor Parking Lot", 1);
-    Room elevator = new Room("Elevator", 1);
-    Room csa = new Room("Center for Student Affairs Scholarship & Grant Office", 1);
-    Room ovp = new Room("Office of the Vice President for Academic Affairs", 1);
-    Room cashier = new Room("Cashier", 1);
-    Room edp = new Room("Electronic Data Processing", 1);
-    Room odfs = new Room("Office of the Director Financial Services", 2);
-    Room bac = new Room("BAC Office", 3);
-    Room dmst = new Room("Department of Military Science & Tactics (NSTP & ROTC)", 1);
-    Room lao_ubs = new Room("Legal Affairs Office of the University Board Secretary", 2);
-    Room cea_dean_office = new Room("CEA Dean's Office", 2);
+    Room registrar = new Room("Registrar", 1, R.drawable.registrar);
+    Room library1 = new Room("Library", 3, R.drawable.library_1);
+    Room coop = new Room("Co-Op", 1, R.drawable.co_op);
+    Room mic = new Room("MIC", 1, R.drawable.electronic_dataprocessing_mic);
+    Room cpe_faculty = new Room("CpE Faculty", 1, R.drawable.cpe_office);
+    Room ece_faculty = new Room("ECE Faculty", 3, R.drawable.room_placeholder);
+    Room coe_center = new Room("COE Center", 3, R.drawable.coe);
+    Room ece_lab = new Room("ECE Lab", 1, R.drawable.ece_lab);
+    Room cpe_lab = new Room("CpE Lab", 1, R.drawable.room_placeholder);
+    Room library2 = new Room("Library 2", 2, R.drawable.room_placeholder);
+    Room dormitory = new Room("Dormitory", 0, R.drawable.dormitory);
+    Room alumni_room = new Room("Alumni Room", 4, R.drawable.room_placeholder);
+    Room gymnasium = new Room("Gymnasium", 0, R.drawable.gym);
+    Room legal_office = new Room("University Legal Affairs Office", 2, R.drawable.legal_affairs);
+    Room psychology_lab = new Room("Psychology Lab", 6, R.drawable.room_placeholder);
+    Room cpe_office = new Room("Computer Engineering Office", 1, R.drawable.cpe_office);
+    Room motor_parkinglot = new Room("Motor Parking Lot", 1, R.drawable.motor_parking);
+    Room elevator = new Room("Elevator", 1, R.drawable.elevator);
+    Room csa = new Room("Center for Student Affairs Scholarship & Grant Office", 1, R.drawable.center_student_affairs);
+    Room ovp = new Room("Office of the Vice President for Academic Affairs", 1, R.drawable.office_of_the_vice_president);
+    Room cashier = new Room("Cashier", 1, R.drawable.cashier);
+    Room edp = new Room("Electronic Data Processing", 1, R.drawable.electronic_dataprocessing_mic);
+    Room odfs = new Room("Office of the Director Financial Services", 2, R.drawable.office_of_the_director);
+    Room bac = new Room("BAC Office", 3, R.drawable.bac_office);
+    Room dmst = new Room("Department of Military Science & Tactics (NSTP & ROTC)", 1, R.drawable.department_of_military);
+    Room lao_ubs = new Room("Legal Affairs Office of the University Board Secretary", 2, R.drawable.legal_affairs);
+    Room cea_dean_office = new Room("CEA Dean's Office", 2, R.drawable.room_placeholder);
 
     Building mab = new Building("Main Academic Building",
             new Room[]{registrar, library1}, 5, (float) 0.5685061, (float) 0.6698321);
@@ -246,6 +243,8 @@ public class MainMapActivity extends AppCompatActivity {
     Vector<String> buildingNames = new Vector<String>();
     Vector<String> roomNames = new Vector<String>();
 
+    ImageView roomImage;
+
     private void dropdownSelectBuildingAndRoom() {
         buildingNames.add("Select Building");
         for (Building building : buildings) {
@@ -311,6 +310,7 @@ public class MainMapActivity extends AppCompatActivity {
 
                 TextView roomname = findViewById(R.id.roomname);
                 TextView floornumber = findViewById(R.id.floornumber);
+                roomImage = findViewById(R.id.room_image);
 
                 if (buildingSelected != null) {
                     for (Room room : buildingSelected.getRooms()) {
@@ -319,6 +319,7 @@ public class MainMapActivity extends AppCompatActivity {
                             slidepanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
                             roomname.setText("ROOM: " + room.getName());
                             floornumber.setText("FLOOR: " + room.getFloorNumber());
+                            roomImage.setImageResource(room.getPictureID());
                             break;
                         } else {
                             slidepanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);

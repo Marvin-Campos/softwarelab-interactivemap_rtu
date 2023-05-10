@@ -29,12 +29,11 @@
         android:id="@+id/buildinglogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/selectbuilding"
         app:layout_constraintEnd_toStartOf="@+id/selectbuilding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/selectbuilding"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@android:drawable/btn_star_big_on" />
 
     <Spinner
         android:id="@+id/selectbuilding"
@@ -53,7 +52,6 @@
         android:id="@+id/roomlogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/selectroom"
         app:layout_constraintEnd_toStartOf="@id/selectroom"
         app:layout_constraintStart_toEndOf="@id/selectbuilding"
@@ -189,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@id/roomname"
                 android:layout_alignTop="@id/roomname"
+                android:layout_alignEnd="@id/floornumber"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
                 app:srcCompat="@drawable/room_placeholder" />
